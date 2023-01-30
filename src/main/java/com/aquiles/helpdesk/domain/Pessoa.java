@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
-@Entity
+@Entity(name = "pessoa")
 public abstract class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1l;
