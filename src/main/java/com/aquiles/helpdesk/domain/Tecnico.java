@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
@@ -26,8 +25,8 @@ public class Tecnico extends Pessoa {
         addPerfis(Perfil.CLIENTE);
     }
 
-    public Tecnico(Integer id, String nome, String cpf, String email, String senha, List<Chamado> chamados) {
+    public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
         super(id, nome, cpf, email, senha);
-       addPerfis(Perfil.CLIENTE);
+        addPerfis(Perfil.CLIENTE);
     }
 }

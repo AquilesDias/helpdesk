@@ -18,7 +18,6 @@ public class Chamado implements Serializable {
 
     private static final long serialVersionUID = 1l;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -40,4 +39,14 @@ public class Chamado implements Serializable {
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
+
+    public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Cliente cliente, Tecnico tecnico) {
+        this.id = id;
+        this.prioridade = prioridade;
+        this.status = status;
+        this.titulo = titulo;
+        this.observacoes = observacoes;
+        this.cliente = cliente;
+        this.tecnico = tecnico;
+    }
 }
