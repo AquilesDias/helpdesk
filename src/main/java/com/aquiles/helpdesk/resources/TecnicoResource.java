@@ -1,5 +1,6 @@
 package com.aquiles.helpdesk.resources;
 
+import com.aquiles.helpdesk.domain.DTO.TecnicoDTO;
 import com.aquiles.helpdesk.domain.Tecnico;
 import com.aquiles.helpdesk.service.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class TecnicoResource {
     private TecnicoService tecnicoService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Tecnico> findById(@PathVariable Integer id){
+    public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
         Tecnico obj =  tecnicoService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 }
