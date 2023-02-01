@@ -1,6 +1,7 @@
 package com.aquiles.helpdesk.domain;
 
 import com.aquiles.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class Tecnico extends Pessoa {
 
     private static final long serialVersionUID = 1l;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
