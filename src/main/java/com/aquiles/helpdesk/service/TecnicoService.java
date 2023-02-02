@@ -2,6 +2,8 @@ package com.aquiles.helpdesk.service;
 
 import com.aquiles.helpdesk.domain.Tecnico;
 import com.aquiles.helpdesk.repositories.TecnicoRepository;
+import com.aquiles.helpdesk.service.exception.ObjectNotFoundException;
+import org.hibernate.type.ObjectType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,6 @@ public class TecnicoService {
 
     public Tecnico findById(Integer id){
         Optional<Tecnico> obj = tecnicoRepository.findById(id);
-        return obj.orElse(null );
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Id não encontrado: " +id));
     }
 }
