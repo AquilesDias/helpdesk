@@ -28,14 +28,20 @@ public class DBService {
 
     public void instanceDB(){
 
-        Tecnico tecnico = new Tecnico(null, "Valdir Cezar", "19167655050", "valdir@gmail.com", "1234");
+        Tecnico tecnico = new Tecnico(null, "Naruto", "19167655052", "Naruto@gmail.com", "1234");
         tecnico.addPerfis(Perfil.ADMIN);
 
-        Cliente cliente = new Cliente(null, "Linus Torvalds", "41940655064", "linus@mail.com", "123");
+        Tecnico tecnico2 = new Tecnico(null, "Sasuke", "19167655053", "Sasuke@gmail.com", "1234");
+        tecnico.addPerfis(Perfil.ADMIN);
+
+        Tecnico tecnico3 = new Tecnico(null, "Hinata", "191676550504", "Hinata@gmail.com", "1234");
+        tecnico.addPerfis(Perfil.ADMIN);
+
+        Cliente cliente = new Cliente(null, "Itachi", "41940655064", "Itachi@mail.com", "123");
 
         Chamado chamado = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "chamado 01", "Primeiro Chamado",cliente , tecnico);
 
-        tecnicoRepository.saveAll(Arrays.asList(tecnico));
+        tecnicoRepository.saveAll(Arrays.asList(tecnico,tecnico2, tecnico3));
         clienteRepository.saveAll(Arrays.asList(cliente));
         chamadoRepository.saveAll(Arrays.asList(chamado));
     }
