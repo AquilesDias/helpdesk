@@ -7,11 +7,11 @@ import com.aquiles.helpdesk.service.TecnicoService;
 import org.hibernate.context.TenantIdentifierMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.ServerSocket;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +22,8 @@ public class TecnicoResource {
 
     @Autowired
     private TecnicoService tecnicoService;
-    private TecnicoRepository tecnicoRepository;
 
+    /*****    REQUISIÇÕES GET     *****/
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
         Tecnico obj =  tecnicoService.findById(id);
@@ -35,5 +35,12 @@ public class TecnicoResource {
         List<Tecnico> tecnicos = tecnicoService.findAll();
         List<TecnicoDTO> tecnicoDTOS = tecnicos.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(tecnicoDTOS);
+    }
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody TecnicoDTO tecnicoDTO){
+        Tecnico tecnico = tecnicoService.save(tecnicoDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
+        return ResponseEntity.created(uri).body(tecnico);
     }
 }

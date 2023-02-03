@@ -1,5 +1,6 @@
 package com.aquiles.helpdesk.service;
 
+import com.aquiles.helpdesk.domain.DTO.TecnicoDTO;
 import com.aquiles.helpdesk.domain.Tecnico;
 import com.aquiles.helpdesk.repositories.TecnicoRepository;
 import com.aquiles.helpdesk.service.exception.ObjectNotFoundException;
@@ -23,5 +24,11 @@ public class TecnicoService {
 
     public List<Tecnico> findAll() {
        return tecnicoRepository.findAll();
+    }
+
+    public Tecnico save(TecnicoDTO tecnicoDTO) {
+      tecnicoDTO.setId(null);
+      Tecnico tecnico = new Tecnico(tecnicoDTO);
+      return tecnicoRepository.save(tecnico);
     }
 }

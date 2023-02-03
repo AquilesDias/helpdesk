@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class TecnicoDTO implements Serializable {
 
@@ -35,6 +34,11 @@ public class TecnicoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
+    public TecnicoDTO(){
+        super();
+        addPerfis(Perfil.CLIENTE);
+    }
+
 
     public TecnicoDTO(Tecnico obj) {
         super();
@@ -45,6 +49,7 @@ public class TecnicoDTO implements Serializable {
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(x -> x.getCod()).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
+        addPerfis(Perfil.CLIENTE);
     }
 
     public Set<Perfil> getPerfis() {
