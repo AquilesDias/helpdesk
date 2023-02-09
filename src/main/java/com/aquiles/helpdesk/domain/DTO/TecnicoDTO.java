@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -21,12 +23,16 @@ public class TecnicoDTO implements Serializable {
 
     protected Integer id;
 
+    @NotNull(message = "Campo nome requerido!")
     protected String nome;
 
+    @NotNull(message = "Campo cpf requerido!")
     protected String cpf;
 
+    @NotNull(message = "Campo email requerido!")
     protected String email;
 
+    @NotNull(message = "Campo senha requerido!")
     protected String senha;
 
     protected Set<Integer> perfis = new HashSet<>();

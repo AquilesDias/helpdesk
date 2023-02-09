@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.ServerSocket;
 import java.net.URI;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class TecnicoResource {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody TecnicoDTO tecnicoDTO){
+    public ResponseEntity create(@Valid @RequestBody TecnicoDTO tecnicoDTO){
         Tecnico tecnico = tecnicoService.save(tecnicoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
         return ResponseEntity.created(uri).body(tecnico);
