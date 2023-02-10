@@ -4,6 +4,7 @@ import com.aquiles.helpdesk.domain.DTO.TecnicoDTO;
 import com.aquiles.helpdesk.domain.Tecnico;
 import com.aquiles.helpdesk.repositories.TecnicoRepository;
 import com.aquiles.helpdesk.service.TecnicoService;
+import org.apache.coyote.Response;
 import org.hibernate.context.TenantIdentifierMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +39,19 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(tecnicoDTOS);
     }
 
+    /*****    REQUISIÇÕES POST     *****/
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody TecnicoDTO tecnicoDTO){
         Tecnico tecnico = tecnicoService.save(tecnicoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
         return ResponseEntity.created(uri).body(tecnico);
+    }
+
+    /*****    REQUISIÇÕES PUT     *****/
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @RequestBody TecnicoDTO tecnicoDTO){
+        Tecnico tecnico = tecnicoService.update(id,tecnicoDTO);
+        return ResponseEntity.ok().body(new TecnicoDTO(tecnico));
+
     }
 }
