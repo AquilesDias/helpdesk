@@ -9,6 +9,8 @@ import com.aquiles.helpdesk.service.exception.DataIntegrityViolationException;
 import com.aquiles.helpdesk.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +46,17 @@ public class TecnicoService {
         validarCpfeEmail(tecnicoDTO);
         oldTecnico = new Tecnico(tecnicoDTO);
         return tecnicoRepository.save(oldTecnico);
+    }
+
+    public void delete(Integer id) {
+
+        Tecnico tecnico = findById(id);
+
+        if(tecnico.getChamados().size() > 0){
+            throw new DataIntegrityViolationException("Não foi possivel deletar tecnico, verifique os chamados.");
+        }
+
+        tecnicoRepository.deleteById(id);
     }
 
     private void validarCpfeEmail(TecnicoDTO tecnicoDTO) {
