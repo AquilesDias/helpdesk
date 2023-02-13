@@ -38,11 +38,12 @@ public class DBService {
         tecnico.addPerfis(Perfil.ADMIN);
 
         Cliente cliente = new Cliente(null, "Itachi", "41940655064", "Itachi@mail.com", "123");
+        Cliente cliente1 = new Cliente(null, "Konohamaru", "41940655764", "Konohamaru@mail.com", "123");
 
         Chamado chamado = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "chamado 01", "Primeiro Chamado",cliente , tecnico);
 
         tecnicoRepository.saveAll(Arrays.asList(tecnico,tecnico2, tecnico3));
-        clienteRepository.saveAll(Arrays.asList(cliente));
+        clienteRepository.saveAll(Arrays.asList(cliente, cliente1));
         chamadoRepository.saveAll(Arrays.asList(chamado));
     }
 
