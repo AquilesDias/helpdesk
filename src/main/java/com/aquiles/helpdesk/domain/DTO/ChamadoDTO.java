@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -22,16 +23,22 @@ public class ChamadoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataFechamento;
 
+    @NotNull(message = "Campo PRIORIDADE requirido!")
     protected Integer prioridade;
 
+    @NotNull(message = "Campo STATUS requerido!")
     protected Integer status;
 
+    @NotNull(message = "Campo TITULO requerido!")
     protected String titulo;
 
+    @NotNull(message = "Campo OBSERVACOES requerido!")
     protected String observacoes;
 
+    @NotNull(message = "Campo TECNICO requerido!")
     private Integer tecnico;
 
+    @NotNull(message = "Campo CLIENTE requerido!")
     private Integer cliente;
 
     private String nomeTecnico;
