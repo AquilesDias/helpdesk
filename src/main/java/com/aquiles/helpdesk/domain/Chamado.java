@@ -3,11 +3,14 @@ package com.aquiles.helpdesk.domain;
 import com.aquiles.helpdesk.domain.enums.Prioridade;
 import com.aquiles.helpdesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,10 +26,10 @@ public class Chamado implements Serializable {
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dataAbertura;
+    private LocalDate dataAbertura = LocalDate.now();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dataFechamento;
+    private LocalDate dataFechamento;
     private Prioridade prioridade;
     private Status status;
     private String titulo;
