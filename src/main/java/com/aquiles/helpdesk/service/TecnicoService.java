@@ -8,9 +8,8 @@ import com.aquiles.helpdesk.repositories.TecnicoRepository;
 import com.aquiles.helpdesk.service.exception.DataIntegrityViolationException;
 import com.aquiles.helpdesk.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +23,9 @@ public class TecnicoService {
     @Autowired
     PessoaRepository pessoaRepository;
 
+    @Autowired
+    BCryptPasswordEncoder encoder;
+
     public Tecnico findById(Integer id){
         Optional<Tecnico> obj = tecnicoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Id não encontrado: " +id));
@@ -35,6 +37,7 @@ public class TecnicoService {
 
     public Tecnico save(TecnicoDTO tecnicoDTO) {
       tecnicoDTO.setId(null);
+      tecnicoDTO.setSenha(encoder.encode(tecnicoDTO.getSenha()));
       validarCpfeEmail(tecnicoDTO);
       Tecnico tecnico = new Tecnico(tecnicoDTO);
       return tecnicoRepository.save(tecnico);

@@ -8,6 +8,7 @@ import com.aquiles.helpdesk.repositories.PessoaRepository;
 import com.aquiles.helpdesk.service.exception.DataIntegrityViolationException;
 import com.aquiles.helpdesk.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public class ClienteService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+
     public Cliente findById(Integer id){
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Id não encontrado: " +id));
@@ -33,6 +38,7 @@ public class ClienteService {
 
     public Cliente save(ClienteDTO clienteDTO){
         clienteDTO.setId(null);
+        clienteDTO.setSenha(encoder.encode(clienteDTO.getSenha()));
         validarCpfeEmail(clienteDTO);
         Cliente cliente = new Cliente(clienteDTO);
         return clienteRepository.save(cliente);
