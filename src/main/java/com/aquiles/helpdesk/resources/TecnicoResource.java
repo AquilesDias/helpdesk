@@ -8,6 +8,7 @@ import org.apache.coyote.Response;
 import org.hibernate.context.TenantIdentifierMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,8 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<TecnicoDTO>> findAll(){
         List<Tecnico> tecnicos = tecnicoService.findAll();
@@ -41,6 +44,7 @@ public class TecnicoResource {
 
     /*****    REQUISIÇÕES POST     *****/
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity create(@Valid @RequestBody TecnicoDTO tecnicoDTO){
         Tecnico tecnico = tecnicoService.save(tecnicoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
@@ -48,6 +52,8 @@ public class TecnicoResource {
     }
 
     /*****    REQUISIÇÕES PUT     *****/
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @RequestBody TecnicoDTO tecnicoDTO){
         Tecnico tecnico = tecnicoService.update(id,tecnicoDTO);
@@ -57,6 +63,7 @@ public class TecnicoResource {
 
     /*****    REQUISIÇÕES DELETE     *****/
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id){
         tecnicoService.delete(id);
