@@ -2,18 +2,18 @@ package com.aquiles.helpdesk.domain.DTO;
 
 import com.aquiles.helpdesk.domain.Chamado;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class ChamadoDTO implements Serializable {
 
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
 
     protected Integer id;
 
